@@ -46,7 +46,10 @@ data RPS = Rock | Paper | Scissors
 -- >>> beats Paper Rock
 -- True
 beats :: RPS -> RPS -> Bool
-beats = undefined
+beats Paper Rock = True
+beats Rock Scissors = True
+beats Scissors Paper = True
+beats _ _ = False
 
 -- TASK:
 -- Define the "next" throw you can do in the "usual" ordering of RPS
@@ -55,7 +58,9 @@ beats = undefined
 -- >>> next Rock
 -- Paper
 next :: RPS -> RPS
-next = undefined
+next Rock = Paper
+next Paper = Scissors
+next Scissors = Rock
 
 -- TASK:
 -- Define what it means for two RPS values to be equal
@@ -66,7 +71,13 @@ next = undefined
 -- >>> eqRPS Rock Paper
 -- False
 eqRPS :: RPS -> RPS -> Bool
-eqRPS = undefined
+eqRPS Rock Rock = True
+eqRPS Rock _ = False
+eqRPS Paper Paper = True
+eqRPS Paper _ = False
+eqRPS Scissors Scissors = True
+eqRPS Scissors _ = False
+
 
 -- TASK:
 -- Define a shorter version of beats using next and eqRPS
@@ -77,7 +88,7 @@ eqRPS = undefined
 -- True
 
 beats' :: RPS -> RPS -> Bool
-beats' = undefined
+beats' a b = eqRPS a (next b)
 
 ------------
 -- Points --
@@ -164,7 +175,8 @@ addNat (Succ n1) n2 = Succ (addNat n1 n2)
 -- Succ (Succ (Succ (Succ (Succ (Succ Zero)))))
 
 multNat :: Nat -> Nat -> Nat
-multNat = undefined
+multNat Zero n2 = undefined
+multNat (Succ n1) n2 = addNat n1 n2
 
 -- TASK:
 -- Compare two Nats, returning an Ordering
